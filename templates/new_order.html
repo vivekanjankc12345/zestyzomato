@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>New Order</title>
+</head>
+<body>
+    <h1>New Order</h1>
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form method="POST" action="/order/new">
+        <label for="name">Customer Name:</label>
+        <input type="text" name="name" required><br>
+        <br>
+        <label for="dishes">Dishes:</label><br>
+        {% for dish in menu %}
+        <input type="checkbox" name="dish_id" value="{{ dish['id'] }}"> {{ dish['name'] }}<br>
+        {% endfor %}
+        <br>
+        <input type="submit" value="Submit Order">
+    </form>
+    <br>
+    <a href="/order">Go Back</a>
+</body>
+</html>

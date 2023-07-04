@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Orders</title>
+</head>
+<body>
+    <h1>Orders</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Customer</th>
+            <th>Dishes</th>
+            <th>Status</th>
+        </tr>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order['id'] }}</td>
+            <td>{{ order['customer'] }}</td>
+            <td>
+                <ul>
+                    {% for dish in order['dishes'] %}
+                    <li>{{ dish['name'] }}</li>
+                    {% endfor %}
+                </ul>
+            </td>
+            <td>{{ order['status'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/order/new">Take New Order</a>
+    <br>
+    <a href="/order/update">Update Order Status</a>
+    <br>
+    <a href="/order/review">Review Orders</a>
+    <br>
+    <br>
+    <a href="/">Go Back</a>
+</body>
+</html>
