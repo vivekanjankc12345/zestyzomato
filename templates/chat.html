@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chatbot</title>
+</head>
+<body>
+    <h1>Welcome to the Chatbot</h1>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <input type="text" id="user-input" autofocus>
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script>
+        function sendMessage() {
+            var userMessage = document.getElementById('user-input').value;
+            document.getElementById('user-input').value = '';
+            appendMessage('You: ' + userMessage);
+            fetch('/chatget', {
+                method: 'POST',
+                body: new URLSearchParams({
+                    'user_input': userMessage
+                })
+            })
+            .then(response => response.text())
+            .then(data => appendMessage('Chatbot: ' + data));
+        }
+
+        function appendMessage(message) {
+            var chatLog = document.getElementById('chat-log');
+            chatLog.innerHTML += message + '<br>';
+        }
+    </script>
+</body>
+</html>
