@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Feedback System</title>
+</head>
+<body>
+    <h1>Menu</h1>
+    <ul>
+        {% for dish in menu %}
+        <li>
+            <h3>{{ dish['name'] }}</h3>
+            <p>Price: {{ dish['price'] }}</p>
+            <p>Availability: {% if dish['availability'] %}Available{% else %}Not Available{% endif %}</p>
+            <p>Rating: {{ dish['rating'] }}</p>
+            <p>Reviews:</p>
+            <ul>
+                {% for review in dish['reviews'] %}
+                <li>{{ review }}</li>
+                {% endfor %}
+            </ul>
+            <form action="/submit_feedback" method="post">
+                <input type="hidden" name="dish_id" value="{{ dish['id'] }}">
+                <label for="rating">Rating (1-5 stars):</label>
+                <input type="number" name="rating" min="1" max="5" required>
+                <br>
+                <label for="review">Review:</label>
+                <textarea name="review" rows="4" required></textarea>
+                <br>
+                <input type="submit" value="Submit Feedback">
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
